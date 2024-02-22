@@ -23,7 +23,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -47,7 +47,6 @@ table {
 	border-spacing: 0;
 }
 
-// 47번줄까지가 reset css입니다. 
 
 
 *{
@@ -61,19 +60,10 @@ table {
 }
 
 
-
-button{
-  cursor: pointer;
-}
-
 textarea{
   resize: none;
 }
 
-body {
-  box-sizing: border-box;
-  background-color: #f2f6e7;
-}
 
 
 `;
