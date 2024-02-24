@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Location from '../components/Location';
+import Search from '../components/Search';
 
 function Home() {
   return (
     <StDiv>
       <Location />
+      <Search />
     </StDiv>
   );
 }
