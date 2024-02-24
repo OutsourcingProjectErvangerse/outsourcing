@@ -58,11 +58,6 @@ function Location() {
 
   return (
     <StSection>
-      <form onSubmit={onSubmitClickEventHandler}>
-        <input value={keyword} onChange={onChangeKeywordHandler}></input>
-        <button type="submit">검색하기</button>
-      </form>
-
       <Map // 로드뷰를 표시할 Container
         center={{
           lat: 37.566826,
