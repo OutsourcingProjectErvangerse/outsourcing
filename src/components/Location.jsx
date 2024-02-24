@@ -3,12 +3,16 @@ import styled from 'styled-components';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
 import useInput from '../hooks/useInput';
+import { useSelector } from 'react-redux';
 
 function Location() {
-  const [info, setInfo] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [info, setInfo] = useState('');
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
   const [keyword, onChangeKeywordHandler] = useInput();
+  //redux toolkit에 저장된 state 가져오기
+  // const searchSelector = useSelector(state);
 
   useEffect(() => {
     //MAP 정상 작동 여부
@@ -17,17 +21,17 @@ function Location() {
     //장소 및 지역 검색
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(`맛집`, placeSearchHandler);
+    //"이태원" => searchSelector값 가져오기
+    ps.keywordSearch(`이태원`, placeSearchHandler);
   }, [map]);
 
   const placeSearchHandler = (data, status, _pagination) => {
+    console.log(data);
     //장소 검색이 정상적으로 호출 되었을 때
     if (status === kakao.maps.services.Status.OK) {
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
       // LatLngBounds 객체에 좌표를 추가합니다
       const bounds = new kakao.maps.LatLngBounds();
-
-      // let markers = [];
 
       // 검색된 각 장소에 대해 마커를 생성하고 지도 범위에 추가
       const markers = data.map((item) => {
@@ -39,8 +43,6 @@ function Location() {
 
         return { position, content: item.place_name };
       });
-
-      console.log(markers);
 
       //지도에 표시된 마커스 상태 변경
       setMarkers(markers);
@@ -77,9 +79,13 @@ function Location() {
           <MapMarker
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
             position={marker.position}
-            onClick={() => setInfo(marker)}
+            onMouseOver={() => {
+              setIsOpen(true);
+              setInfo(marker);
+            }}
+            onMouseOut={() => setIsOpen(false)}
           >
-            {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
+            {isOpen && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
           </MapMarker>
         ))}
       </Map>
