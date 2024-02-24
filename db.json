@@ -1,19 +1,32 @@
 {
-    "todos": [
-        {
-            "id": 1,
-            "content": "HTML",
-            "completed": true
-        },
-        {
-            "id": 2,
-            "content": "CSS",
-            "completed": false
-        },
-        {
-            "id": 3,
-            "content": "Javascript",
-            "completed": true
-        }
-    ]
+  "dummyData": [
+    {
+      "id": "1",
+      "place_name": "카페 A",
+      "category_name": "카페",
+      "category_group_code": "CE7",
+      "category_group_name": "카페",
+      "phone": "010-1234-5678",
+      "address_name": "서울특별시 강남구 역삼동",
+      "road_address_name": "서울특별시 강남구 테헤란로",
+      "x": "127.03644144163634",
+      "y": "37.5123082186477",
+      "place_url": "https://place.map.kakao.com/123456789",
+      "distance": "100"
+    },
+    {
+      "id": "2",
+      "place_name": "식당 B",
+      "category_name": "음식점",
+      "category_group_code": "FD6",
+      "category_group_name": "음식점",
+      "phone": "010-9876-5432",
+      "address_name": "서울특별시 강남구 역삼동",
+      "road_address_name": "서울특별시 강남구 테헤란로",
+      "x": "127.035856476847",
+      "y": "37.5133217298247",
+      "place_url": "https://place.map.kakao.com/987654321",
+      "distance": "200"
+    }
+  ]
 }
