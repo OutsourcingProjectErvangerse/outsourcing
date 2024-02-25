@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './index.css';
 import GlobalFontStyle from './assets/fonts/GlobalFontsStyle.jsx';
 import GlobalStyled from './styles/Globalstyled.jsx';
+import List from './components/List.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <div>
