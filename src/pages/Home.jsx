@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import Location from '../components/Location';
 import Search from '../components/Search';
+import List from '../components/List';
 
 function Home() {
   return (
     <StDiv>
       <Location />
       <Search />
+      <List />
     </StDiv>
   );
 }
