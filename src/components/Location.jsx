@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useState, useEffect } from 'react';
 import useInput from '../hooks/useInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addList } from '../shared/store/modules/list';
 
 function Location() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,8 +12,7 @@ function Location() {
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
   const [keyword, onChangeKeywordHandler] = useInput();
-  //redux toolkit에 저장된 state 가져오기
-  // const searchSelector = useSelector(state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     //MAP 정상 작동 여부
@@ -26,7 +26,7 @@ function Location() {
   }, [map]);
 
   const placeSearchHandler = (data, status, _pagination) => {
-    console.log(data);
+    dispatch(addList(data));
     //장소 검색이 정상적으로 호출 되었을 때
     if (status === kakao.maps.services.Status.OK) {
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해

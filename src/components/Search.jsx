@@ -14,7 +14,6 @@ function Search() {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     const search = event.target.search.value;
-    console.log(search);
 
     if (!search) {
       alert('장소 및 주소를 입력해주세요.');
@@ -26,15 +25,12 @@ function Search() {
   };
 
   return (
-    <section>
-      <SearchForm onSubmit={handleSearchSubmit}>
-        <input type="text" placeholder="장소, 주소 검색" name="search" />
-        <button>
-          <img src={SearchIcon} alt="Search" />
-        </button>
-      </SearchForm>
-      {text}
-    </section>
+    <SearchForm onSubmit={handleSearchSubmit}>
+      <input type="text" placeholder="장소, 주소 검색" name="search" />
+      <button>
+        <img src={SearchIcon} alt="Search" />
+      </button>
+    </SearchForm>
   );
 }
 
