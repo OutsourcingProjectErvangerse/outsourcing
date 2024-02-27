@@ -4,6 +4,9 @@ import Location from '../components/Location';
 import Search from '../components/Search';
 
 function Home() {
+
+  const navigate = useNavigate();
+
   return (
     <StDiv>
       <Location />
