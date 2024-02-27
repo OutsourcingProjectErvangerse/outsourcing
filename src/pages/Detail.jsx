@@ -16,10 +16,10 @@ function Detail() {
   // const [content, onChangeContentHandler] = useInput();
   const [nickname, onChangeNicknameHandler] = useInput();
   const [password, onChangePasswordHandler] = useInput();
+  const [passwordCheck, onChangePasswordCheckHandler] = useInput();
   const [isClickToggle, setIsClickToggle] = useState(false);
   const [isEditToggle, setIsEditToggle] = useState(false);
   const [isClickId, setIsClickId] = useState();
-  const [passwordCheck, onChangePasswordCheckHandler] = useInput();
 
   const date = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
@@ -88,6 +88,9 @@ function Detail() {
       setTitle(review.title);
       setContent(review.content);
       editMutate({ id: review.id, review: { title, content } });
+
+      setIsEditToggle(false);
+      setPassw;
 
       return;
     }
@@ -167,7 +170,6 @@ function Detail() {
           </div>
         ))}
       </StDiv2>
-      ;
     </>
   );
 }
