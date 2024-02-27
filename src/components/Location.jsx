@@ -1,87 +1,112 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useState, useEffect } from 'react';
-import useInput from '../hooks/useInput';
-import { useSelector } from 'react-redux';
+import { addList } from '../shared/store/modules/list';
 
 function Location() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [info, setInfo] = useState('');
+  const [isCursor, setIsCursor] = useState(false);
+  const [infoWindow, setInfoWindow] = useState('');
+  const [isClick, setIsClick] = useState(false);
+  const [result, setResult] = useState('');
   const [markers, setMarkers] = useState([]);
-  const [map, setMap] = useState();
-  const [keyword, onChangeKeywordHandler] = useInput();
-  //redux toolkit에 저장된 state 가져오기
-  // const searchSelector = useSelector(state);
+  const [map, setMap] = useState(null);
+  const searchSelector = useSelector((state) => state.search);
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state.connection);
 
   useEffect(() => {
     //MAP 정상 작동 여부
     if (!map) return;
-
     //장소 및 지역 검색
     const ps = new kakao.maps.services.Places();
 
-    //"이태원" => searchSelector값 가져오기
-    ps.keywordSearch(`이태원`, placeSearchHandler);
-  }, [map]);
+    // const options = {
+    //   location: new kakao.maps.LatLng(location.center.lat, location.center.lng),
+    //   sort: kakao.maps.services.SortBy.DISTANCE //Distance: 거리순, accuracy: 정확도 순
+    // };
 
+    //searchSelector: 검색한 키워드
+    ps.keywordSearch(searchSelector, placeSearchHandler);
+  }, [searchSelector]);
+
+  //검색 결과 처리
   const placeSearchHandler = (data, status, _pagination) => {
-    console.log(data);
-    //장소 검색이 정상적으로 호출 되었을 때
+    dispatch(addList(data));
+
     if (status === kakao.maps.services.Status.OK) {
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-      // LatLngBounds 객체에 좌표를 추가합니다
+      // LatLngBounds 객체에 좌표를 추가
       const bounds = new kakao.maps.LatLngBounds();
 
-      // 검색된 각 장소에 대해 마커를 생성하고 지도 범위에 추가
+      // 검색된 장소에 대해 마커를 생성하고 지도 범위에 추가
       const markers = data.map((item) => {
-        //장소의 x,y 경로
+        //장소의 경로
         const position = { lat: item.y, lng: item.x };
 
-        //지도의 범위를 설정
+        //지도의 범위 설정
         bounds.extend(new kakao.maps.LatLng(item.y, item.x));
 
-        return { position, content: item.place_name };
+        return {
+          position,
+          place_name: item.place_name,
+          id: item.id,
+          address_name: item.address_name,
+          category: item.category_group_name
+        };
       });
+
+      //지도 범위를 재설정
+      map.setBounds(bounds);
 
       //지도에 표시된 마커스 상태 변경
       setMarkers(markers);
-
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-      map.setBounds(bounds);
     }
   };
 
-  const onSubmitClickEventHandler = (e) => {
-    e.preventDefault();
+  const onClickEventHandler = (marker) => {
+    console.log('test', marker);
+
+    setIsClick(true);
+    setResult(marker);
   };
 
   return (
     <StSection>
-      <Map // 로드뷰를 표시할 Container
-        center={{
-          lat: 37.566826,
-          lng: 126.9786567
-        }}
+      <Map
+        center={{ lat: 37.566826, lng: 126.9786567 }}
         style={{
           width: '100%',
           height: '100%'
         }}
         level={3}
         onCreate={setMap}
+        onClick={() => setIsClick(false)}
       >
         {markers.map((marker) => (
-          <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-            position={marker.position}
-            onMouseOver={() => {
-              setIsOpen(true);
-              setInfo(marker);
-            }}
-            onMouseOut={() => setIsOpen(false)}
-          >
-            {isOpen && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
-          </MapMarker>
+          <CustomOverlayMap key={marker.id} position={marker.position}>
+            <MapMarker
+              position={marker.position}
+              onMouseOver={() => {
+                setIsCursor(true);
+                setInfoWindow(marker);
+              }}
+              onMouseOut={() => setIsCursor(false)}
+              clickable={true}
+              onClick={() => onClickEventHandler(marker)}
+            >
+              {isClick && result.id === marker.id ? (
+                <StMarkerClickDiv>
+                  <p>{marker.place_name}</p>
+                  <p>{marker.address_name}</p>
+                  <p>{marker.category}</p>
+                </StMarkerClickDiv>
+              ) : (selector.isClick && selector.id === marker.id) || (isCursor && infoWindow.id === marker.id) ? (
+                <StMarkerCursorDiv>
+                  <p>{marker.place_name}</p>
+                </StMarkerCursorDiv>
+              ) : null}
+            </MapMarker>
+          </CustomOverlayMap>
         ))}
       </Map>
     </StSection>
@@ -93,5 +118,33 @@ export default Location;
 const StSection = styled.section`
   width: 60%;
   height: 100%;
-  background-color: purple;
+  font-size: 15px;
+  & * {
+    border: none !important;
+    border-radius: 10px;
+  }
+`;
+
+const StMarkerCursorDiv = styled.div`
+  width: 250px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc !important;
+  border-radius: 10px;
+  padding: 10px;
+`;
+
+const StMarkerClickDiv = styled.div`
+  background-color: #fff;
+  border: 1px solid #ccc !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: -52px;
+  margin-left: -38px;
+  width: 300px;
+  height: 90px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
 `;
