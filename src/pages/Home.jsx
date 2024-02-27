@@ -6,20 +6,23 @@ import List from '../components/List';
 
 function Home() {
   return (
-    <StDiv>
+    <Container>
       <Location />
-
       <Search />
       <List />
-    </StDiv>
+    </Container>
   );
 }
 
 export default Home;
 
-const StDiv = styled.div`
-  width: 100%;
-  height: 100vh;
+const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
   display: flex;
-  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
 `;
