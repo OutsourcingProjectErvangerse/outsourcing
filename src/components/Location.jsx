@@ -1,10 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
-import { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { addList } from '../shared/store/modules/list';
-import { useNavigate } from 'react-router-dom';
 
 function Location() {
   const [isCursor, setIsCursor] = useState(false);
@@ -12,12 +10,9 @@ function Location() {
   const [isClick, setIsClick] = useState(false);
   const [result, setResult] = useState('');
   const [markers, setMarkers] = useState([]);
-
   const [map, setMap] = useState(null);
-
   const searchSelector = useSelector((state) => state.search);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     //MAP 정상 작동 여부

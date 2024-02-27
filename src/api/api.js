@@ -10,6 +10,10 @@ const apiClient = axios.create({
   baseURL: 'http://localhost:5000',
   headers: { 'Content-Type': 'application/json' }
 });
+const kakaoApi = axios.create({
+  baseURL:'https://place.map.kakao.com/main/v/',
+  headers : {'Content-Type': 'Access-Control-Allow-Origin'}
+})
 
 // 모든 TODO 목록 가져오기 (GET /todos)
 export const getTodos = async () => {
@@ -17,6 +21,10 @@ export const getTodos = async () => {
 
   return data;
 };
+export const singleList = async (id) =>{
+  const { data } = await kakaoApi.get(`${id}`);
+return data;
+}
 
 // 특정 ID의 TODO 상세 정보 가져오기 (GET /todos/:id)
 export const getSingleTodo = async (id) => {

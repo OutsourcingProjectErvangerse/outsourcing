@@ -8,8 +8,10 @@ function Home() {
   return (
     <StDiv>
       <Location />
-      <Search />
-      <List />
+      <section>
+        <Search />
+        <List />
+      </section>
     </StDiv>
   );
 }
