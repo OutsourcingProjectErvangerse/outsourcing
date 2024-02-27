@@ -39,6 +39,7 @@ export default Search;
 const SearchForm = styled.form`
   display: flex;
   flex-direction: row;
+  width: 100%;
   & input {
     width: 300px;
     height: 40px;

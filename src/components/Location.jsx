@@ -96,9 +96,9 @@ function Location() {
             >
               {isClick && result.id === marker.id ? (
                 <StMarkerClickDiv>
-                  <p>식당이름:{marker.place_name}</p>
-                  <p>주소:{marker.address_name}</p>
-                  <p>카테고리: {marker.category}</p>
+                  <p>{marker.place_name}</p>
+                  <p>{marker.address_name}</p>
+                  <p>{marker.category}</p>
                 </StMarkerClickDiv>
               ) : (selector.isClick && selector.id === marker.id) || (isCursor && infoWindow.id === marker.id) ? (
                 <StMarkerCursorDiv>
@@ -126,11 +126,25 @@ const StSection = styled.section`
 `;
 
 const StMarkerCursorDiv = styled.div`
-  border-radius: 15px;
+  width: 250px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc !important;
+  border-radius: 10px;
   padding: 10px;
 `;
 
 const StMarkerClickDiv = styled.div`
+  background-color: #fff;
+  border: 1px solid #ccc !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: -52px;
+  margin-left: -38px;
+  width: 300px;
+  height: 90px;
+  text-align: center;
   border-radius: 10px;
-  padding: 30px;
+  padding: 10px;
 `;

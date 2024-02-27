@@ -1,32 +1,58 @@
 {
-  "dummyData": [
+  "review": [
     {
-      "id": "1",
-      "place_name": "카페 A",
-      "category_name": "카페",
-      "category_group_code": "CE7",
-      "category_group_name": "카페",
-      "phone": "010-1234-5678",
-      "address_name": "서울특별시 강남구 역삼동",
-      "road_address_name": "서울특별시 강남구 테헤란로",
-      "x": "127.03644144163634",
-      "y": "37.5123082186477",
-      "place_url": "https://place.map.kakao.com/123456789",
-      "distance": "100"
+      "id": "112313",
+      "place_id": "12233092",
+      "nickname": "",
+      "password": "",
+      "title": "두번째 테스트",
+      "content": "두번째두번째두번째두번째두번째두번째두번째",
+      "createAt": "2024년 2월 22일 오전 12:32"
     },
     {
-      "id": "2",
-      "place_name": "식당 B",
-      "category_name": "음식점",
-      "category_group_code": "FD6",
-      "category_group_name": "음식점",
-      "phone": "010-9876-5432",
-      "address_name": "서울특별시 강남구 역삼동",
-      "road_address_name": "서울특별시 강남구 테헤란로",
-      "x": "127.035856476847",
-      "y": "37.5133217298247",
-      "place_url": "https://place.map.kakao.com/987654321",
-      "distance": "200"
+      "id": "12223",
+      "place_id": "312312321",
+      "nickname": "",
+      "password": "",
+      "title": "세번째 테스트",
+      "content": "세번째세번째세번째세번째세번째세번째세번째",
+      "createAt": "2024년 3월 33일 오전 12:32"
+    },
+    {
+      "id": "eaa5",
+      "place_id": "17733090",
+      "nickname": "11",
+      "password": "11",
+      "title": "222",
+      "content": "222",
+      "createAt": "2024년 2월 27일 오후 11:36"
+    },
+    {
+      "id": "35d6",
+      "place_id": "17733090",
+      "nickname": "11",
+      "password": "11",
+      "title": "111",
+      "content": "111",
+      "createAt": "2024년 2월 27일 오후 11:39"
+    },
+    {
+      "id": "834413ab-7d49-4046-9077-62bef2669d2e",
+      "place_id": "17733090",
+      "nickname": "11",
+      "password": "11",
+      "title": "111",
+      "content": "111",
+      "createAt": "2024년 2월 27일 오후 11:40"
+    },
+    {
+      "id": "8e8af23f-ba84-44d4-952d-4d3209126c65",
+      "place_id": "17733090",
+      "nickname": "44",
+      "password": "44",
+      "title": "44",
+      "content": "44",
+      "createAt": "2024년 2월 28일 오전 12:36"
     }
   ]
 }

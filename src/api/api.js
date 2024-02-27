@@ -10,45 +10,34 @@ const apiClient = axios.create({
   baseURL: 'http://localhost:5000',
   headers: { 'Content-Type': 'application/json' }
 });
-const kakaoApi = axios.create({
-  baseURL:'https://place.map.kakao.com/main/v/',
-  headers : {'Content-Type': 'Access-Control-Allow-Origin'}
-})
 
-// 모든 TODO 목록 가져오기 (GET /todos)
-export const getTodos = async () => {
-  const { data } = await apiClient.get('/todos');
-
+// 모든 Review 목록 가져오기 (GET / review)
+export const getReview = async () => {
+  const { data } = await apiClient.get('/review');
   return data;
 };
-export const singleList = async (id) =>{
-  const { data } = await kakaoApi.get(`${id}`);
-return data;
-}
+
+// 새로운 Review 추가하기 (POST / review)
+export const createReview = async (review) => {
+  const { data } = await apiClient.post('/review', review);
+  return data;
+};
+
+// 특정 ID의 Review 삭제하기 (DELETE /review/:id)
+export const deleteReview = async (id) => {
+  await apiClient.delete(`/review/${id}`);
+  return id;
+};
+
+// 특정 ID의 Review 수정하기 (PATCH /review/:id)
+export const updateTodo = async (id, review) => {
+  await todoApi.patch(`/review/${id}`, review);
+  return id;
+};
 
 // 특정 ID의 TODO 상세 정보 가져오기 (GET /todos/:id)
-export const getSingleTodo = async (id) => {
-  const { data } = await todoApi.get(`/todos/${id}`);
+export const getSingleTodo = async (place_id) => {
+  const { data } = await apiClient.get(`/detail/${place_id}`);
 
   return data;
-};
-
-// 새로운 TODO 추가하기 (POST /todos)
-export const createTodo = async (todo) => {
-  const { data } = await todoApi.post('/todos', todo);
-
-  return data;
-};
-
-// 특정 ID의 TODO 삭제하기 (DELETE /todos/:id)
-export const deleteTodo = async (id) => {
-  await todoApi.delete(`/todos/${id}`);
-  return id;
-};
-
-// 특정 ID의 TODO 수정하기 (PATCH /todos/:id)
-export const updateTodo = async (id, todo) => {
-  await todoApi.patch(`/todos/${id}`, todo);
-
-  return id;
 };

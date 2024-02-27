@@ -24,7 +24,7 @@ const List = () => {
   return (
     <div>
       {fetchListData.map((data) => (
-        <div>
+        <div key={data.id}>
           <div
             key={data.id}
             onMouseOver={() => handleMouseOver(data)}
