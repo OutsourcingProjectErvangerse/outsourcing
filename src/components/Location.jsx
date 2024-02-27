@@ -37,7 +37,7 @@ function Location() {
   //검색 결과 처리
   const placeSearchHandler = (data, status, _pagination) => {
     dispatch(addList(data));
-    // console.log(data);
+
     if (status === kakao.maps.services.Status.OK) {
       // LatLngBounds 객체에 좌표를 추가
       const bounds = new kakao.maps.LatLngBounds();
@@ -50,7 +50,13 @@ function Location() {
         //지도의 범위 설정
         bounds.extend(new kakao.maps.LatLng(item.y, item.x));
 
-        return { position, content: item.place_name, id: item.id };
+        return {
+          position,
+          place_name: item.place_name,
+          id: item.id,
+          address_name: item.address_name,
+          category: item.category_group_name
+        };
       });
 
       //지도 범위를 재설정
@@ -93,14 +99,14 @@ function Location() {
               onClick={() => onClickEventHandler(marker)}
             >
               {isClick && result.id === marker.id ? (
-                <StMarkerCursorDiv>
-                  <p>{marker.content}</p>
-                  <p>{marker.id}</p>
-                </StMarkerCursorDiv>
+                <StMarkerClickDiv>
+                  <p>식당이름:{marker.place_name}</p>
+                  <p>주소:{marker.address_name}</p>
+                  <p>카테고리: {marker.category}</p>
+                </StMarkerClickDiv>
               ) : isCursor && infoWindow.id === marker.id ? (
                 <StMarkerCursorDiv>
-                  <p>{marker.content}</p>
-                  <p>{marker.id}</p>
+                  <p>{marker.place_name}</p>
                 </StMarkerCursorDiv>
               ) : null}
             </MapMarker>
@@ -125,7 +131,10 @@ const StSection = styled.section`
 
 const StMarkerCursorDiv = styled.div`
   border-radius: 15px;
-  padding: 20px;
+  padding: 10px;
 `;
 
-const StMarkerCursorDi = styled.div``;
+const StMarkerClickDiv = styled.div`
+  border-radius: 10px;
+  padding: 30px;
+`;
