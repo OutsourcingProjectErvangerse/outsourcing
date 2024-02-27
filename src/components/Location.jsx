@@ -13,6 +13,7 @@ function Location() {
   const [map, setMap] = useState(null);
   const searchSelector = useSelector((state) => state.search);
   const dispatch = useDispatch();
+  const selector = useSelector((state) => state.connection);
 
   useEffect(() => {
     //MAP 정상 작동 여부
@@ -99,7 +100,7 @@ function Location() {
                   <p>주소:{marker.address_name}</p>
                   <p>카테고리: {marker.category}</p>
                 </StMarkerClickDiv>
-              ) : isCursor && infoWindow.id === marker.id ? (
+              ) : (selector.isClick && selector.id === marker.id) || (isCursor && infoWindow.id === marker.id) ? (
                 <StMarkerCursorDiv>
                   <p>{marker.place_name}</p>
                 </StMarkerCursorDiv>

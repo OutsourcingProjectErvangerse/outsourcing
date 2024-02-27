@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getClick } from '../shared/store/modules/listConnection';
 
 const List = () => {
   const fetchListData = useSelector((state) => state.list);
   const [isHovered, setIsHovered] = useState(false);
   const [content, setContent] = useState('');
+  const dispatch = useDispatch();
+
   const handleMouseOver = (data) => {
     setIsHovered(true);
     setContent(data);
+    dispatch(getClick({ isClick: true, id: data.id }));
     console.log(isHovered);
   };
 
   const handleMouseOut = () => {
     setIsHovered(false);
+    dispatch(getClick(false));
   };
 
   return (
