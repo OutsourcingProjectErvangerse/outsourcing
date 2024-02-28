@@ -21,11 +21,6 @@ function Location() {
     //장소 및 지역 검색
     const ps = new kakao.maps.services.Places();
 
-    // const options = {
-    //   location: new kakao.maps.LatLng(location.center.lat, location.center.lng),
-    //   sort: kakao.maps.services.SortBy.DISTANCE //Distance: 거리순, accuracy: 정확도 순
-    // };
-
     //searchSelector: 검색한 키워드
     ps.keywordSearch(searchSelector, placeSearchHandler);
   }, [searchSelector]);

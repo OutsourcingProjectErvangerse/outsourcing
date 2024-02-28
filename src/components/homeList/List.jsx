@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getClick } from '../shared/store/modules/listConnection';
+import { getClick } from '../../shared/store/modules/listConnection';
 
 const List = () => {
   const fetchListData = useSelector((state) => state.list);
