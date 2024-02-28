@@ -31,7 +31,7 @@ const ReviewList = () => {
     <>
       {filterReviews.map((item) => (
         <ReviewItemContainer key={item.id}>
-          <ReviewListItem review={item} datas={reviews} />
+          <ReviewListItem review={item} />
         </ReviewItemContainer>
       ))}
     </>

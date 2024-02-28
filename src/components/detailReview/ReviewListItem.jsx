@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteReview, updateReview } from '../../api/api';
 
-const ReviewListItem = ({ review, datas }) => {
+const ReviewListItem = ({ review }) => {
   const [inputPassword, onChangePasswordCheckHandler, resetPasswordCheck] = useInput();
-  //편집 버튼
-  const [isEditToggle, setIsClickToggle] = useState(false);
-  const [isPasswordMatchToggle, setIsEditToggle] = useState(false);
-  const [isClickId, setIsClickId] = useState();
+  const [isEditToggle, setIsEditToggle] = useState(false);
+  const [isPasswordMatchToggle, setIsPasswordMatchToggle] = useState(false);
+  const [title, onChangeTitleHandler, resetTitle, defaultValue] = useInput();
+  const [content, onChangeContentHandler, resetContent] = useInput();
+
   const queryClient = useQueryClient();
 
   const { mutate: deleteMutate } = useMutation({
@@ -24,13 +25,10 @@ const ReviewListItem = ({ review, datas }) => {
   });
 
   //수정 버튼 이벤트 핸들러
-  const onClickEditHandler = async (id) => {
-    const review = datas.find((item) => item.id === id);
-    if (review && review.password === passwordCheck) {
-      setTitle(review.title);
-      setContent(review.content);
+  const onClickEditHandler = async () => {
+    if (review.password === inputPassword) {
+      defaultValue(review.title);
       editMutate({ id: review.id, review: { title, content } });
-
       setIsEditToggle(false);
 
       return;
@@ -39,10 +37,10 @@ const ReviewListItem = ({ review, datas }) => {
   };
 
   //삭제 버튼 이벤트 핸들러
-  const onClickDeleteHandler = async (id) => {
-    const findReview = datas.find((item) => item.id === id);
-    if (review && findReview.password === inputPassword) {
+  const onClickDeleteHandler = async () => {
+    if (review.password === inputPassword) {
       deleteMutate(review.id);
+
       alert('정상적으로 삭제가 완료 됐습니다.');
       return;
     }
@@ -50,14 +48,13 @@ const ReviewListItem = ({ review, datas }) => {
   };
 
   //작성자의 패스워드 확인
-  const onClickPasswordCheck = (id) => {
-    const findReview = datas.find((item) => item.id === id);
-
-    if (review && findReview.password === inputPassword) {
-      setIsEditToggle(!isEditToggle);
+  const onClickPasswordCheck = () => {
+    if (review.password === inputPassword) {
+      setIsPasswordMatchToggle(!isPasswordMatchToggle);
+      resetPasswordCheck();
       return;
     }
-    alert('수정할 수 없습니다.');
+    alert('비밀번호가 일치하지 않습니다.');
     resetPasswordCheck();
   };
 
@@ -68,17 +65,26 @@ const ReviewListItem = ({ review, datas }) => {
         <div>{review.createAt}</div>
       </ReviewItemHeader>
       <ReviewItemContent>
-        <div>{review.title}</div>
-        <div>{review.content}</div>
+        {isPasswordMatchToggle ? (
+          <>
+            <InputField value={title} onChange={onChangeTitleHandler} />
+            <InputField value={content} onChange={onChangeContentHandler} />
+          </>
+        ) : (
+          <>
+            <div>{review.title}</div>
+            <div>{review.content}</div>
+          </>
+        )}
       </ReviewItemContent>
       <FancyButton
         onClick={() => {
-          setIsClickToggle(!isClickToggle);
-          setIsClickId(review.id);
-          setIsEditToggle(false);
+          setIsEditToggle(!isEditToggle);
+          setIsPasswordMatchToggle(false);
+          resetPasswordCheck();
         }}
       >
-        편집
+        {isPasswordMatchToggle ? '취소' : '편집'}
       </FancyButton>
       {isEditToggle ? (
         <>
@@ -88,13 +94,13 @@ const ReviewListItem = ({ review, datas }) => {
             onChange={onChangePasswordCheckHandler}
             placeholder="비밀번호 입력"
           />
-          <Button onClick={() => onClickPasswordCheck(review.id)}>{isPasswordMatchToggle ? '취소' : '확인'}</Button>
+          {!isPasswordMatchToggle ? <Button onClick={() => onClickPasswordCheck()}>확인</Button> : null}
         </>
       ) : null}
-      {isPasswordMatchToggle && isClickId === review.id ? (
+      {isPasswordMatchToggle ? (
         <>
-          <FancyButton onClick={() => onClickEditHandler(review.id)}>수정</FancyButton>
-          <FancyButton onClick={() => onClickDeleteHandler(review.id)}>삭제</FancyButton>
+          <FancyButton onClick={() => onClickEditHandler()}>수정</FancyButton>
+          <FancyButton onClick={() => onClickDeleteHandler()}>삭제</FancyButton>
         </>
       ) : null}
     </>

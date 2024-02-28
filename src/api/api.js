@@ -1,13 +1,9 @@
 import axios from 'axios';
 
-//중요!!!
-//환경 변수 부분에서 에러인 App.jsx:25 Uncaught (in promise) ReferenceError: process is not defined 발생
-//vite에서는 process 지원 X
-//import.meta.env.[변수명]으로 선언해야한다!!!
-// const SERVER_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: SERVER_URL,
   headers: { 'Content-Type': 'application/json' }
 });
 
