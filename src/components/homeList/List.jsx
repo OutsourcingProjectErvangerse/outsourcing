@@ -30,7 +30,7 @@ const List = () => {
           key={data.id}
           onMouseOver={() => handleMouseOver(data)}
           onMouseOut={handleMouseOut}
-          style={{ color: isHovered && content.id === data.id ? '#ccc' : 'white' }}
+          style={{ color: isHovered && content.id === data.id ? 'gray' : '#b5b5b5' }}
         >
           <StLink to={`/detail/${data.id}`}>{data.place_name}</StLink>
           <p>{data.category_group_name}</p>
@@ -45,6 +45,9 @@ const List = () => {
 export default List;
 const StUl = styled.ul`
   width: 100%;
+  height: 729px;
+  border-radius: 5px;
+  overflow: auto;
 `;
 const StLi = styled.li`
   border: 1px solid black;
@@ -55,6 +58,7 @@ const StLi = styled.li`
   gap: 3px;
   height: 100px;
   border-radius: 8px;
+  background-color: white;
 `;
 const StLink = styled(Link)`
   color: black;

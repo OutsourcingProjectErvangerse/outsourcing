@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { PROVINCES, DISTRICTS, PLACES } from '../shared/cityData';
 import { useDispatch } from 'react-redux';
 import { changeSearchText } from '../shared/store/modules/search';
+import styled from 'styled-components';
 
 function Search() {
   const [seletedProvince, setSeletedProvince] = useState('');
@@ -59,8 +60,8 @@ function Search() {
   }
 
   return (
-    <>
-      <div>
+    <section>
+      <SelectArea>
         <select value={seletedProvince} onChange={handleSeletedProvinces}>
           <option value="" hidden>
             시/도 선택
@@ -74,8 +75,8 @@ function Search() {
           })}
         </select>
         {districtToggle}
-      </div>
-      <div>
+      </SelectArea>
+      <ButtonArea>
         {PLACES.map((place) => {
           return (
             <button key={place} onClick={() => handleCategoryButton(place)}>
@@ -83,9 +84,43 @@ function Search() {
             </button>
           );
         })}
-      </div>
-    </>
+      </ButtonArea>
+    </section>
   );
 }
 
 export default Search;
+
+const SelectArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  & select {
+    width: 180px;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+`;
+const ButtonArea = styled.div`
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  & button {
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: #b5b5b5;
+    width: 110px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  & button:hover {
+    background-color: #959595;
+  }
+`;
