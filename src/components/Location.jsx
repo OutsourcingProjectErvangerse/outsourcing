@@ -21,12 +21,17 @@ function Location() {
     //장소 및 지역 검색
     const ps = new kakao.maps.services.Places();
 
+    const options = {
+      sort: kakao.maps.services.SortBy.ACCURACY //Distance: 거리순, accuracy: 정확도 순
+    };
+
     //searchSelector: 검색한 키워드
-    ps.keywordSearch(searchSelector, placeSearchHandler);
+    ps.keywordSearch(searchSelector, placeSearchHandler, options);
   }, [searchSelector]);
 
   //검색 결과 처리
   const placeSearchHandler = (data, status, _pagination) => {
+    console.log(data);
     dispatch(addList(data));
 
     if (status === kakao.maps.services.Status.OK) {
