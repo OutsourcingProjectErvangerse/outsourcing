@@ -3,16 +3,22 @@ import styled from 'styled-components';
 import Location from '../components/Location';
 import Search from '../components/Search';
 import List from '../components/homeList/List';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Home() {
   return (
-    <Container>
-      <Location />
-      <SearchListArea>
-        <Search />
-        <List />
-      </SearchListArea>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Location />
+        <SearchListArea>
+          <Search />
+          <List />
+        </SearchListArea>
+      </Container>
+      <Footer />
+    </>
   );
 }
 
