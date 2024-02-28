@@ -28,22 +28,22 @@ const ReviewList = () => {
   const filterReviews = reviews.filter((item) => item.place_id === id);
 
   return (
-    <>
+    <ul>
       {filterReviews.map((item) => (
         <ReviewItemContainer key={item.id}>
           <ReviewListItem review={item} />
         </ReviewItemContainer>
       ))}
-    </>
+    </ul>
   );
 };
 
 export default ReviewList;
 
-const ReviewItemContainer = styled.div`
+const ReviewItemContainer = styled.li`
   border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 20px;
+  border-radius: 10px;
   margin-bottom: 20px;
+  padding: 40px 40px 70px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 `;

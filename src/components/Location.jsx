@@ -96,9 +96,9 @@ function Location() {
             >
               {isClick && result.id === marker.id ? (
                 <StMarkerClickDiv>
-                  <p>{marker.place_name}</p>
-                  <p>{marker.address_name}</p>
-                  <p>{marker.category}</p>
+                  <StPlaceName>{marker.place_name}</StPlaceName>
+                  <StAddressName>{marker.address_name}</StAddressName>
+                  <StCategory>{marker.category}</StCategory>
                 </StMarkerClickDiv>
               ) : (selector.isClick && selector.id === marker.id) || (isCursor && infoWindow.id === marker.id) ? (
                 <StMarkerCursorDiv>
@@ -141,10 +141,23 @@ const StMarkerClickDiv = styled.div`
   flex-direction: column;
   gap: 10px;
   margin-top: -52px;
-  margin-left: -38px;
+  margin-left: -28px;
   width: 300px;
   height: 90px;
   text-align: center;
   border-radius: 10px;
   padding: 10px;
+`;
+
+const StPlaceName = styled.p`
+  font-size: 18px;
+`;
+
+const StAddressName = styled.p`
+  font-size: 14px;
+`;
+
+const StCategory = styled.p`
+  font-size: 14px;
+  color: #999;
 `;

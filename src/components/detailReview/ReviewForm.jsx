@@ -78,21 +78,38 @@ function ReviewForm() {
     return true;
   };
   return (
-    <Form onSubmit={onSubmitHandler}>
-      <InputField type="text" value={title} onChange={onChangeTitleHandler} placeholder="제목" />
-      <TextArea value={content} onChange={onChangeContentHandler} placeholder="내용" />
-      <InputField type="text" value={nickname} onChange={onChangeNicknameHandler} placeholder="아이디" />
-      <InputField type="password" value={password} onChange={onChangePasswordHandler} placeholder="비밀번호" />
-      <Button type="submit">게시글 작성</Button>
-    </Form>
+    <>
+      <ReviewTitle>리뷰작성</ReviewTitle>
+      <Form onSubmit={onSubmitHandler}>
+        {/* <lebel htmlFor="" /> */}
+        <InputField type="text" value={title} onChange={onChangeTitleHandler} placeholder="제목" />
+        <TextArea value={content} onChange={onChangeContentHandler} placeholder="내용" />
+        <InputField type="text" value={nickname} onChange={onChangeNicknameHandler} placeholder="닉네임" />
+        <InputField type="password" value={password} onChange={onChangePasswordHandler} placeholder="비밀번호" />
+        <Button type="submit">게시글 작성</Button>
+      </Form>
+    </>
   );
 }
 
 export default ReviewForm;
 
-const Form = styled.form`
-  margin-bottom: 20px;
+const ReviewTitle = styled.h2`
+  font-size: 32px;
+  width: 100%;
+  text-align: center;
+  padding: 30px 0;
 `;
+
+const Form = styled.form`
+  margin-bottom: 50px;
+  background-color: #ff983f;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
+`;
+
 const TextArea = styled.textarea`
   width: 100%;
   height: 100px;
@@ -101,29 +118,30 @@ const TextArea = styled.textarea`
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const InputField = styled.input`
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 4px;
   font-size: 16px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 12px 100px;
   border: none;
   border-radius: 4px;
-  background-color: #4caf50;
+  background-color: #ff6600;
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-right: 10px;
-
-  &:hover {
-    background-color: #45a049;
-  }
+  margin-top: 20px;
 `;

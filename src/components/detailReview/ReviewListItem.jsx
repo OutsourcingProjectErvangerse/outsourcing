@@ -66,20 +66,20 @@ const ReviewListItem = ({ review }) => {
   return (
     <>
       <ReviewItemHeader>
-        <div>{review.nickname}</div>
-        <div>{review.createAt}</div>
+        <h2>{review.nickname}</h2>
+        <time>{review.createAt}</time>
       </ReviewItemHeader>
       <ReviewItemContent>
         {isPasswordMatchToggle ? (
-          <>
+          <div>
             <InputField value={title} onChange={onChangeTitleHandler} />
-            <InputField value={content} onChange={onChangeContentHandler} />
-          </>
+            <Textarea value={content} onChange={onChangeContentHandler} />
+          </div>
         ) : (
-          <>
-            <div>{review.title}</div>
-            <div>{review.content}</div>
-          </>
+          <UserReview>
+            <ReviewTitle>{review.title}</ReviewTitle>
+            <p>{review.content}</p>
+          </UserReview>
         )}
       </ReviewItemContent>
       <FancyButton
@@ -93,7 +93,7 @@ const ReviewListItem = ({ review }) => {
       </FancyButton>
       {isEditToggle ? (
         <>
-          <InputField
+          <PasswordField
             type="password"
             value={inputPassword}
             onChange={onChangePasswordCheckHandler}
@@ -119,18 +119,18 @@ const ReviewListItem = ({ review }) => {
 export default ReviewListItem;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 8px 15px;
   border: none;
   border-radius: 4px;
-  background-color: #4caf50; /* Green */
+  background-color: #ff983f;
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
   margin-right: 10px;
-
+  float: right;
   &:hover {
-    background-color: #45a049;
+    background-color: #ff6600;
   }
 `;
 
@@ -139,6 +139,13 @@ const ReviewItemHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  & > h2 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  & > time {
+    color: #999;
+  }
 `;
 
 const ReviewItemContent = styled.div`
@@ -146,9 +153,12 @@ const ReviewItemContent = styled.div`
 `;
 
 const FancyButton = styled(Button)`
-  background-color: #008cba; /* Blue */
+  background-color: #ff983f;
+  padding: 8px 15px;
+  margin-top: 10px;
+  float: right;
   &:hover {
-    background-color: #0073e6;
+    background-color: #ff6600;
   }
 `;
 
@@ -159,4 +169,35 @@ const InputField = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+`;
+
+const UserReview = styled.div`
+  margin-top: 20px;
+  & > p {
+    line-height: 24px;
+    padding: 5px 0;
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 150px;
+  line-height: 24px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const PasswordField = styled.input`
+  width: 100%;
+  margin: 15px 0;
+  padding: 8px 5px;
+`;
+
+const ReviewTitle = styled.p`
+  font-size: 20px;
+  font-weight: bold;
 `;

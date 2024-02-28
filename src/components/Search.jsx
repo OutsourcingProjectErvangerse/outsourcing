@@ -60,7 +60,7 @@ function Search() {
   }
 
   return (
-    <section>
+    <SelectWrap>
       <SelectArea>
         <select value={seletedProvince} onChange={handleSeletedProvinces}>
           <option value="" hidden>
@@ -85,42 +85,52 @@ function Search() {
           );
         })}
       </ButtonArea>
-    </section>
+    </SelectWrap>
   );
 }
 
 export default Search;
 
+const SelectWrap = styled.div`
+  width: 100%;
+`;
+
 const SelectArea = styled.div`
   display: flex;
-  flex-direction: row;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
   & select {
-    width: 180px;
-    padding: 5px;
+    width: 50%;
+    padding: 8px 5px;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    border: 1px solid #ff6600;
+    &:focus {
+      border: 1px solid #ff6600;
+    }
   }
 `;
 const ButtonArea = styled.div`
-  margin: 1rem 0;
+  margin-bottom: 10px;
   display: flex;
-  flex-direction: row;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
   & button {
     border: none;
     border-radius: 10px;
     font-weight: bold;
-    background-color: #b5b5b5;
-    width: 110px;
-    padding: 5px;
+    background-color: #ff983f;
+    width: 33%;
+    padding: 8px 5px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    margin-top: 10px;
   }
   & button:hover {
-    background-color: #959595;
+    background-color: #ff6600;
+    color: #fff;
   }
 `;

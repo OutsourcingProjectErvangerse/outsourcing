@@ -8,27 +8,29 @@ function Home() {
   return (
     <Container>
       <Location />
-      <SeachListArea>
+      <SearchListArea>
         <Search />
         <List />
-      </SeachListArea>
+      </SearchListArea>
     </Container>
   );
 }
 
 export default Home;
 
-const Container = styled.div`
-  width: 80%;
+const Container = styled.main`
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #fff;
   display: flex;
   justify-content: space-around;
-  /* align-items: center; */
   height: 100vh;
+  gap: 20px;
 `;
 
-const SeachListArea = styled.div`
-  width: 34%;
+const SearchListArea = styled.section`
+  width: 40%;
+  overflow: auto;
+  padding-right: 20px;
 `;
