@@ -30,14 +30,7 @@ export const deleteReview = async (id) => {
 };
 
 // 특정 ID의 Review 수정하기 (PATCH /review/:id)
-export const updateTodo = async (id, review) => {
+export const updateReview = async (id, review) => {
   await todoApi.patch(`/review/${id}`, review);
   return id;
-};
-
-// 특정 ID의 TODO 상세 정보 가져오기 (GET /todos/:id)
-export const getSingleTodo = async (place_id) => {
-  const { data } = await apiClient.get(`/detail/${place_id}`);
-
-  return data;
 };

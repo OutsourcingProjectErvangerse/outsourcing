@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { createReview } from '../../api/api';
 import { useParams } from 'react-router-dom';
 
-function DetailForm() {
+function ReviewForm() {
   const [title, onChangeTitleHandler, resetTitle] = useInput();
   const [content, onChangeContentHandler, resetContent] = useInput();
   const [nickname, onChangeNicknameHandler, resetNickname] = useInput();
@@ -88,7 +88,7 @@ function DetailForm() {
   );
 }
 
-export default DetailForm;
+export default ReviewForm;
 
 const Form = styled.form`
   margin-bottom: 20px;
