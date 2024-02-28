@@ -8,8 +8,10 @@ function Home() {
   return (
     <Container>
       <Location />
-      <Search />
-      <List />
+      <SeachListArea>
+        <Search />
+        <List />
+      </SeachListArea>
     </Container>
   );
 }
@@ -23,6 +25,10 @@ const Container = styled.div`
   background-color: #f0f0f0;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  /* align-items: center; */
   height: 100vh;
+`;
+
+const SeachListArea = styled.div`
+  width: 34%;
 `;
