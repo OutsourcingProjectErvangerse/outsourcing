@@ -39,10 +39,10 @@ const List = () => {
           onMouseOut={handleMouseOut}
           style={{ color: isHovered && content.id === data.id ? '#ccc' : 'white' }}
         >
-          <p>{data.address_name}</p>
-          <p>{data.category_group_name}</p>
-          <p>{data.phone}</p>
           <StLink to={`/detail/${data.id}`}>{data.place_name}</StLink>
+          <p>{data.category_group_name}</p>
+          <p>{data.address_name}</p>
+          <p>{data.phone}</p>
         </StLi>
       ))}
     </StUl>
@@ -61,6 +61,7 @@ const StLi = styled.li`
   flex-direction: column;
   gap: 3px;
   height: 100px;
+  border-radius: 8px;
 `;
 const StLink = styled(Link)`
   color: black;
