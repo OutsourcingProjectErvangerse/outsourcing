@@ -8,8 +8,8 @@ const ReviewListItem = ({ review }) => {
   const [inputPassword, onChangePasswordCheckHandler, resetPasswordCheck] = useInput();
   const [isEditToggle, setIsEditToggle] = useState(false);
   const [isPasswordMatchToggle, setIsPasswordMatchToggle] = useState(false);
-  const [title, onChangeTitleHandler, resetTitle, defaultValue] = useInput();
-  const [content, onChangeContentHandler, resetContent] = useInput();
+  const [title, onChangeTitleHandler, resetTitle] = useInput(review.title);
+  const [content, onChangeContentHandler, resetContent] = useInput(review.content);
 
   const queryClient = useQueryClient();
 
@@ -21,36 +21,41 @@ const ReviewListItem = ({ review }) => {
   });
 
   const { mutate: editMutate } = useMutation({
-    mutationFn: ({ id, review }) => updateReview(id, review)
+    mutationFn: ({ id, review }) => {
+      console.log(id);
+      console.log('review', review);
+      updateReview(id, review);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
   });
 
   //수정 버튼 이벤트 핸들러
   const onClickEditHandler = async () => {
-    if (review.password === inputPassword) {
-      defaultValue(review.title);
-      editMutate({ id: review.id, review: { title, content } });
-      setIsEditToggle(false);
-
-      return;
+    if (review.content === content && review.title === title) {
+      return alert('변경된 내용이 없습니다.');
     }
-    alert('비밀번호가 일치하지 않습니다.');
+    editMutate({ id: review.id, review: { title, content } });
+    setIsEditToggle(false);
+    alert('변경되었습니다.');
+    setIsPasswordMatchToggle(false);
+    return;
   };
 
   //삭제 버튼 이벤트 핸들러
   const onClickDeleteHandler = async () => {
-    if (review.password === inputPassword) {
-      deleteMutate(review.id);
+    deleteMutate(review.id);
 
-      alert('정상적으로 삭제가 완료 됐습니다.');
-      return;
-    }
-    alert('비밀번호가 일치하지 않습니다.');
+    alert('정상적으로 삭제가 완료 됐습니다.');
+    return;
   };
 
   //작성자의 패스워드 확인
   const onClickPasswordCheck = () => {
     if (review.password === inputPassword) {
       setIsPasswordMatchToggle(!isPasswordMatchToggle);
+      setIsEditToggle(false);
       resetPasswordCheck();
       return;
     }
@@ -99,8 +104,12 @@ const ReviewListItem = ({ review }) => {
       ) : null}
       {isPasswordMatchToggle ? (
         <>
-          <FancyButton onClick={() => onClickEditHandler()}>수정</FancyButton>
-          <FancyButton onClick={() => onClickDeleteHandler()}>삭제</FancyButton>
+          <FancyButton type="submit" onClick={() => onClickEditHandler()}>
+            수정
+          </FancyButton>
+          <FancyButton type="submit" onClick={() => onClickDeleteHandler()}>
+            삭제
+          </FancyButton>
         </>
       ) : null}
     </>

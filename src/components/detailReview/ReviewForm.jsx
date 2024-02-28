@@ -6,10 +6,10 @@ import { createReview } from '../../api/api';
 import { useParams } from 'react-router-dom';
 
 function ReviewForm() {
-  const [title, onChangeTitleHandler, resetTitle] = useInput();
-  const [content, onChangeContentHandler, resetContent] = useInput();
-  const [nickname, onChangeNicknameHandler, resetNickname] = useInput();
-  const [password, onChangePasswordHandler, resetPassword] = useInput();
+  const [title, onChangeTitleHandler, resetTitle] = useInput('');
+  const [content, onChangeContentHandler, resetContent] = useInput('');
+  const [nickname, onChangeNicknameHandler, resetNickname] = useInput('');
+  const [password, onChangePasswordHandler, resetPassword] = useInput('');
 
   const { id } = useParams();
   const queryClient = useQueryClient();
