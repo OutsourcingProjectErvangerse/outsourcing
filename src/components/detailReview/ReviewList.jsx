@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { getReview } from '../../api/api';
 import ReviewListItem from './ReviewListItem';
 
-const DetailList = () => {
+const ReviewList = () => {
   const { id } = useParams();
 
   const {
@@ -38,7 +38,7 @@ const DetailList = () => {
   );
 };
 
-export default DetailList;
+export default ReviewList;
 
 const ReviewItemContainer = styled.div`
   border: 1px solid #ccc;
