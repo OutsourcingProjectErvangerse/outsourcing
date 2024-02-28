@@ -40,6 +40,7 @@ const ReviewListItem = ({ review }) => {
     setIsEditToggle(false);
     alert('변경되었습니다.');
     setIsPasswordMatchToggle(false);
+    window.location.reload();
     return;
   };
 
