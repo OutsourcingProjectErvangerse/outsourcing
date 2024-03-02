@@ -13,7 +13,6 @@ const ListItem = ({ data }) => {
     setIsHovered(true);
     setContent(data);
     dispatch(getClick({ isClick: true, id: data.id }));
-    console.log(isHovered);
   };
 
   const handleMouseOut = () => {

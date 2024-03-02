@@ -5,11 +5,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteReview, updateReview } from '../../api/api';
 
 const ReviewListItem = ({ review }) => {
-  const [inputPassword, onChangePasswordCheckHandler, resetPasswordCheck] = useInput();
   const [isEditToggle, setIsEditToggle] = useState(false);
   const [isPasswordMatchToggle, setIsPasswordMatchToggle] = useState(false);
-  const [title, onChangeTitleHandler] = useInput(review.title);
-  const [content, onChangeContentHandler] = useInput(review.content);
+
+  const { formState, onChangeHandler, formReset } = useInput({
+    title: review.title,
+    content: review.content,
+    password: ''
+  });
+
+  const { title, content, password } = formState;
 
   const queryClient = useQueryClient();
 
@@ -54,14 +59,13 @@ const ReviewListItem = ({ review }) => {
 
   //작성자의 패스워드 확인
   const onClickPasswordCheck = () => {
-    if (review.password === inputPassword) {
+    if (review.password === password) {
       setIsPasswordMatchToggle(!isPasswordMatchToggle);
       setIsEditToggle(false);
-      resetPasswordCheck();
       return;
     }
     alert('비밀번호가 일치하지 않습니다.');
-    resetPasswordCheck();
+    formReset();
   };
 
   return (
@@ -73,8 +77,8 @@ const ReviewListItem = ({ review }) => {
       <ReviewItemContent>
         {isPasswordMatchToggle ? (
           <div>
-            <InputField value={title} onChange={onChangeTitleHandler} />
-            <Textarea value={content} onChange={onChangeContentHandler} />
+            <InputField value={title} name="title" onChange={onChangeHandler} />
+            <Textarea value={content} name="content" onChange={onChangeHandler} />
           </div>
         ) : (
           <UserReview>
@@ -87,7 +91,7 @@ const ReviewListItem = ({ review }) => {
         onClick={() => {
           setIsEditToggle(!isEditToggle);
           setIsPasswordMatchToggle(false);
-          resetPasswordCheck();
+          formReset();
         }}
       >
         {isPasswordMatchToggle ? '취소' : '편집'}
@@ -96,8 +100,9 @@ const ReviewListItem = ({ review }) => {
         <>
           <PasswordField
             type="password"
-            value={inputPassword}
-            onChange={onChangePasswordCheckHandler}
+            name="password"
+            value={password}
+            onChange={onChangeHandler}
             placeholder="비밀번호 입력"
           />
           {!isPasswordMatchToggle ? <Button onClick={() => onClickPasswordCheck()}>확인</Button> : null}
