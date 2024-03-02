@@ -32,7 +32,7 @@ const ReviewListItem = ({ review }) => {
   });
 
   //수정 버튼 이벤트 핸들러
-  const onClickEditHandler = async () => {
+  const onClickEditHandler = () => {
     if (review.content === content && review.title === title) {
       return alert('변경된 내용이 없습니다.');
     }
@@ -45,7 +45,7 @@ const ReviewListItem = ({ review }) => {
   };
 
   //삭제 버튼 이벤트 핸들러
-  const onClickDeleteHandler = async () => {
+  const onClickDeleteHandler = () => {
     deleteMutate(review.id);
 
     alert('정상적으로 삭제가 완료 됐습니다.');

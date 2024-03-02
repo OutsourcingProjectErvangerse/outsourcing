@@ -26,6 +26,49 @@
       "title": "헬스키친",
       "content": "Amazing~",
       "createAt": "2024년 2월 29일 오전 6:25"
+    },
+    {
+      "place_id": "21562630",
+      "nickname": "돼지",
+      "password": "123",
+      "title": "존맛탱",
+      "content": "여기 맛집입니다!!",
+      "createAt": "2024년 2월 29일 오후 12:00",
+      "id": "qTRpjBv"
+    },
+    {
+      "place_id": "1642538705",
+      "nickname": "11",
+      "password": "11",
+      "title": "11",
+      "content": "11",
+      "id": "4hYKva3"
+    },
+    {
+      "place_id": "1642538705",
+      "nickname": "22",
+      "password": "22",
+      "title": "22",
+      "content": "22",
+      "id": "pNAdyrm"
+    },
+    {
+      "place_id": "1642538705",
+      "nickname": "44",
+      "password": "44",
+      "title": "44",
+      "content": "44",
+      "createAt": "2024년 3월 2일 오후 5:46",
+      "id": "oxVfMeq"
+    },
+    {
+      "id": "1f487855-a2d8-41e1-98db-f01fa8601350",
+      "place_id": "1642538705",
+      "nickname": "55",
+      "password": "55",
+      "title": "55",
+      "content": "55",
+      "createAt": "2024년 3월 2일 오후 5:46"
     }
   ]
 }

@@ -7,25 +7,27 @@ import ReviewListItem from './ReviewListItem';
 
 const ReviewList = () => {
   const { id } = useParams();
-
-  const {
-    data: reviews,
-    isLoading,
-    error
-  } = useQuery({
+  // {
+  //   data: reviews,
+  //   isLoading,
+  //   error
+  // }
+  const query = useQuery({
     queryKey: ['reviews'],
     queryFn: getReview
   });
 
-  if (isLoading) {
+  if (query.isLoading) {
     return <div>로딩중입니다</div>;
   }
 
-  if (error) {
+  if (query.error) {
     return <div>글을 작성해주세요</div>;
   }
 
-  const filterReviews = reviews.filter((item) => item.place_id === id);
+  console.log(query);
+  // const filterReviews = reviews.filter((item) => item.place_id === id);
+  const filterReviews = query.data.filter((item) => item.place_id === id);
 
   return (
     <ul>
