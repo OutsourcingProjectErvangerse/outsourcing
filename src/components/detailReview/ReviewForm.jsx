@@ -7,10 +7,15 @@ import { useParams } from 'react-router-dom';
 import { getFormMattedDate } from '../../util/date';
 
 function ReviewForm() {
-  const [title, onChangeTitleHandler, resetTitle] = useInput('');
-  const [content, onChangeContentHandler, resetContent] = useInput('');
-  const [nickname, onChangeNicknameHandler, resetNickname] = useInput('');
-  const [password, onChangePasswordHandler, resetPassword] = useInput('');
+  //초기값에 빈 문자열을 넣지 않을 경우 input 태그 부분에 undefined값이 들어가 에러 발생
+  const { formState, onChangeHandler, formReset } = useInput({
+    title: '',
+    content: '',
+    nickname: '',
+    password: ''
+  });
+
+  const { title, content, nickname, password } = formState;
 
   const { id } = useParams();
   const queryClient = useQueryClient();
@@ -39,10 +44,7 @@ function ReviewForm() {
       };
       addMutate(newReview);
 
-      resetTitle();
-      resetContent();
-      resetNickname();
-      resetPassword();
+      formReset();
     }
   };
 
@@ -74,11 +76,16 @@ function ReviewForm() {
     <>
       <ReviewTitle>리뷰작성</ReviewTitle>
       <Form onSubmit={onSubmitHandler}>
-        {/* <lebel htmlFor="" /> */}
-        <InputField type="text" value={title} onChange={onChangeTitleHandler} placeholder="제목" />
-        <TextArea value={content} onChange={onChangeContentHandler} placeholder="내용" />
-        <InputField type="text" value={nickname} onChange={onChangeNicknameHandler} placeholder="닉네임" />
-        <InputField type="password" value={password} onChange={onChangePasswordHandler} placeholder="비밀번호" />
+        <InputField type="text" name="title" value={title} onChange={onChangeHandler} placeholder="제목" />
+        <TextArea value={content} name="content" onChange={onChangeHandler} placeholder="내용" />
+        <InputField type="text" name="nickname" value={nickname} onChange={onChangeHandler} placeholder="닉네임" />
+        <InputField
+          type="password"
+          name="password"
+          value={password}
+          onChange={onChangeHandler}
+          placeholder="비밀번호"
+        />
         <Button type="submit">게시글 작성</Button>
       </Form>
     </>

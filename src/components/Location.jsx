@@ -31,7 +31,6 @@ function Location() {
 
   //검색 결과 처리
   const placeSearchHandler = (data, status, _pagination) => {
-    console.log(data);
     dispatch(addList(data));
 
     if (status === kakao.maps.services.Status.OK) {
