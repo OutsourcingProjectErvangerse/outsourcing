@@ -8,8 +8,8 @@ const ReviewListItem = ({ review }) => {
   const [inputPassword, onChangePasswordCheckHandler, resetPasswordCheck] = useInput();
   const [isEditToggle, setIsEditToggle] = useState(false);
   const [isPasswordMatchToggle, setIsPasswordMatchToggle] = useState(false);
-  const [title, onChangeTitleHandler, resetTitle] = useInput(review.title);
-  const [content, onChangeContentHandler, resetContent] = useInput(review.content);
+  const [title, onChangeTitleHandler] = useInput(review.title);
+  const [content, onChangeContentHandler] = useInput(review.content);
 
   const queryClient = useQueryClient();
 
@@ -21,10 +21,10 @@ const ReviewListItem = ({ review }) => {
   });
 
   const { mutate: editMutate } = useMutation({
-    mutationFn: ({ id, review }) => {
+    mutationFn: async ({ id, review }) => {
       console.log(id);
       console.log('review', review);
-      updateReview(id, review);
+      await updateReview(id, review);
     },
     onSuccess: () => {
       queryClient.invalidateQueries();
@@ -40,7 +40,7 @@ const ReviewListItem = ({ review }) => {
     setIsEditToggle(false);
     alert('변경되었습니다.');
     setIsPasswordMatchToggle(false);
-    window.location.reload();
+
     return;
   };
 
