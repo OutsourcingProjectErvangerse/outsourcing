@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { createReview } from '../../api/api';
 import { useParams } from 'react-router-dom';
+import { getFormMattedDate } from '../../util/date';
 
 function ReviewForm() {
   const [title, onChangeTitleHandler, resetTitle] = useInput('');
@@ -13,14 +14,6 @@ function ReviewForm() {
 
   const { id } = useParams();
   const queryClient = useQueryClient();
-
-  const date = new Date().toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric'
-  });
 
   const { mutate: addMutate } = useMutation({
     mutationFn: (review) => createReview(review),
@@ -32,17 +25,17 @@ function ReviewForm() {
   // 게시글 작성
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
+    const date = new Date();
     //게시글 작성 유효성 검사
     if (validation()) {
       const newReview = {
-        id: crypto.randomUUID,
+        id: crypto.randomUUID(),
         place_id: id,
         nickname,
         password,
         title,
         content,
-        createAt: date
+        createAt: getFormMattedDate(date)
       };
       addMutate(newReview);
 
